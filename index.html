@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark">
-
+  
   <!-- NAV (fija) -->
   <header class="nav-wrap">
     <nav class="nav container">
@@ -38,6 +38,7 @@
         <li><a href="#sim">Simulación</a></li>
         <li><a href="#apps">Aplicaciones</a></li>
         <li><a href="#concl">Conclusiones</a></li>
+        <li><a href="#equipo">Equipo</a></li>
         <li><a href="#credits">Créditos</a></li>
       </ul>
 
@@ -48,7 +49,7 @@
   </header>
 
   <!-- HERO -->
-  <main>
+  <main role="main">
     <section id="home" class="hero">
       <div class="hero-inner container">
         <div class="hero-text">
@@ -56,7 +57,7 @@
           <p class="lead">Una demostración experimental de la superconductividad y la levitación cuántica.</p>
           <div class="hero-cta">
             <a href="#exp" class="btn primary" id="scrollToExp">Explora el experimento</a>
-            <button class="btn ghost" id="playAudio">🔊 Sonido ambiental</button>
+            <button type="button" class="btn ghost" id="playAudio" aria-pressed="false" aria-label="Reproducir sonido ambiental">🔊 Sonido ambiental</button>
           </div>
         </div>
 
