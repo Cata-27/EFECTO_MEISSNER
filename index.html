@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Desafiando la Gravedad: Efecto Meissner</title>
+
+  <!-- Tipografía -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- GSAP (animaciones suaves) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+
+  <!-- Icones (Lucide) -->
+  <script type="module" src="https://unpkg.com/lucide@0.264.0/dist/lucide.esm.js" defer></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+
+  <!-- NAV (fija) -->
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <a href="#home" class="logo" aria-label="Logo de levitación">
+        <!-- icono minimalista de imán -->
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 2v6a5 5 0 0 0 5 5h0a5 5 0 0 0 5-5V2" stroke="#66FCF1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 12v8a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-8" stroke="#45A29E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand">MeissnerLab</span>
+      </a>
+
+      <ul class="menu">
+        <li><a href="#home">Inicio</a></li>
+        <li><a href="#intro">Introducción</a></li>
+        <li><a href="#exp">Experimento</a></li>
+        <li><a href="#phys">Física</a></li>
+        <li><a href="#sim">Simulación</a></li>
+        <li><a href="#apps">Aplicaciones</a></li>
+        <li><a href="#concl">Conclusiones</a></li>
+        <li><a href="#credits">Créditos</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="contrastToggle" class="btn small">Modo claro</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-inner container">
+        <div class="hero-text">
+          <h1>Desafiando la Gravedad: <span class="accent">Efecto Meissner</span></h1>
+          <p class="lead">Una demostración experimental de la superconductividad y la levitación cuántica.</p>
+          <div class="hero-cta">
+            <a href="#exp" class="btn primary" id="scrollToExp">Explora el experimento</a>
+            <button class="btn ghost" id="playAudio">🔊 Sonido ambiental</button>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <!-- Representación estilizada del disco levitando -->
+          <svg class="lev-svg" viewBox="0 0 420 280" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#45A29E"/>
+                <stop offset="1" stop-color="#66FCF1"/>
+              </linearGradient>
+              <filter id="fshadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="8" result="b"/>
+                <feOffset in="b" dx="0" dy="6" result="o"/>
+                <feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- pista de imanes (estilizada) -->
+            <g class="track">
+              <rect x="28" y="200" width="364" height="18" rx="6" fill="#1b2832"></rect>
+              <!-- imanes -->
+              <g class="magnets">
+                <rect x="48" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="110" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="172" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="234" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="296" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+              </g>
+            </g>
+
+            <!-- disco superconductor -->
+            <g class="disc" transform="translate(210,160)">
+              <ellipse class="disc-shadow" cx="0" cy="38" rx="50" ry="12" opacity="0.35" fill="#000" />
+              <circle cx="0" cy="0" r="32" fill="url(#g1)" stroke="#0b1116" stroke-width="3" filter="url(#fshadow)"/>
+              <circle cx="0" cy="0" r="12" fill="#0b1116" opacity="0.12"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section id="intro" class="section alt">
+      <div class="container section-inner">
+        <h2>Introducción</h2>
+        <div class="intro-grid">
+          <div class="intro-text">
+            <p>
+              El <strong>Efecto Meissner</strong> es la expulsión del campo magnético del interior de un material cuando este entra en estado superconductor. Al enfriar un material por debajo de su temperatura crítica (Tc), ocurren cambios en la conducta electrónica que permiten la levitación cuántica sobre imanes.
+            </p>
+            <p class="muted">A continuación verás una demostración experimental y una simulación interactiva que explica el fenómeno paso a paso.</p>
+          </div>
+
+          <div class="intro-media"> 
+            <div class="video-card">
+              <video controls muted playsinline preload="metadata" poster="" aria-label="Video demostración efecto Meissner">
+                <source src="Video.mp4" type="video/mp4">
+                Tu navegador no soporta video.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIMENTO -->
+    <section id="exp" class="section">
+      <div class="container section-inner">
+        <h2>Experimento</h2>
+        <div class="exp-grid">
+          <div class="exp-card">
+            <h3>Objetivo</h3>
+            <p>Demostrar la transición a superconductividad y la levitación cuántica mediante el enfriamiento de un disco (superconductor) con nitrógeno líquido sobre una pista de imanes.</p>
+            <h4>Materiales</h4>
+            <ul class="materials">
+              <li>Disco superconductor (YBCO u otro)</li>
+              <li>Banda de imanes (Neodimio) o arreglos de imanes</li>
+              <li>Nitrógeno líquido y equipo de manipulación seguro</li>
+              <li>Pinzas, guantes, gafas de protección</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FISICA -->
+    <section id="phys" class="section alt">
+      <div class="container section-inner">
+        <h2>Física del fenómeno</h2>
+
+        <div class="phys-tabs">
+          <button class="tab active" data-target="elec">Electricidad</button>
+          <button class="tab " data-target="calor">Calor y ondas</button>
+        </div>
+
+        <div class="phys-content">
+          <article id="elec" class="phys-pane active">
+            <h3>Pares de Cooper y resistencia</h3>
+            <p>Al bajar la temperatura, los electrones pueden acoplarse en pares (pares de Cooper) que se comportan como una condensación cuántica coherente. Esto elimina la resistencia eléctrica y permite corrientes persistentes sin disipación.</p>
+            <div class="illustration">
+                <div class="video-card">
+              <video controls muted playsinline preload="metadata" poster="" aria-label="Video ilustración pares de Cooper">
+                <source src="Video2.mp4" type="video/mp4">
+                Tu navegador no soporta video.
+              </video>
+            </div>
+            </div>
+          </article>
+
+          <article id="calor" class="phys-pane">
+            <h3>Enfriamiento y transición de fase</h3>
+            <p>El enfriamiento con nitrógeno líquido reduce la entropía del sistema y lleva al material por debajo de su Tc. Las vibraciones (fonones) y las ondas térmicas se reducen, favoreciendo la formación de pares de Cooper.</p>
+            <div class="illustration">
+                <img src="fonones.png" alt="Ilustración de fonones en un material">
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULACIÓN -->
+    <section id="sim" class="section">
+      <div class="container section-inner">
+        <h2>Simulación interactiva</h2>
+
+        <div class="sim-grid">
+          <div class="sim-canvas">
+            <!-- SVG/Canvas pseudo-3D: usaremos el SVG de hero (clonado) y animaremos con JS -->
+            <div id="simStage" class="stage">
+              <!-- Aquí se controla el disco (reemplaza) -->
+              <svg id="simSVG" viewBox="0 0 420 280" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="g2" x1="0" x2="1">
+                    <stop offset="0" stop-color="#45A29E"/>
+                    <stop offset="1" stop-color="#66FCF1"/>
+                  </linearGradient>
+                  <filter id="f2" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="6" result="b"/>
+                  </filter>
+                </defs>
+
+                <rect width="100%" height="100%" fill="transparent"></rect>
+
+                <g class="track">
+                  <rect x="28" y="200" width="364" height="18" rx="6" fill="#1b2832"></rect>
+                  <g class="magnets">
+                    <rect x="48" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g2)" stroke-width="2"></rect>
+                    <rect x="110" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g2)" stroke-width="2"></rect>
+                    <rect x="172" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g2)" stroke-width="2"></rect>
+                    <rect x="234" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g2)" stroke-width="2"></rect>
+                    <rect x="296" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g2)" stroke-width="2"></rect>
+                  </g>
+                </g>
+
+                <g id="discSim" transform="translate(210,160)">
+                  <ellipse id="discShadow" cx="0" cy="38" rx="50" ry="12" opacity="0.35" fill="#000" />
+                  <circle id="discCircle" cx="0" cy="0" r="32" fill="url(#g2)" stroke="#0b1116" stroke-width="3"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <aside class="sim-controls">
+            <div class="card">
+              <label for="tempRange">Temperatura: <span id="tempValue">25 °C</span></label>
+              <input id="tempRange" type="range" min="-200" max="25" step="0.1" value="25" aria-valuemin="-200" aria-valuemax="25">
+              <div class="ticks">
+                <span>25°C</span>
+                <span>-150°C</span>
+                <span>-181°C</span>
+                <span>-195.8°C</span>
+              </div>
+
+              <div id="stateCard" class="state-card">
+                <h4 id="stateTitle">Estado: Normal</h4>
+                <p id="stateDesc">El material no es superconductor aún, la resistencia eléctrica está presente.</p>
+              </div>
+
+              <div class="legend small muted">
+                Usa el control para bajar la temperatura y observar la transición de fase y la levitación.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- APLICACIONES -->
+    <section id="apps" class="section alt">
+      <div class="container section-inner">
+        <h2>Aplicaciones</h2>
+
+        <div class="apps-grid">
+          <div class="app-card">
+            <div class="icon">🚆</div>
+            <h4>Trenes Maglev</h4>
+            <p>Levitación magnética para transporte de alta velocidad con baja fricción.</p>
+          </div>
+          <div class="app-card">
+            <div class="icon">🧲</div>
+            <h4>Resonadores Magnéticos (MRI)</h4>
+            <p>Imanes superconductores estables en los sistemas de imagen médica.</p>
+          </div>
+          <div class="app-card">
+            <div class="icon">⚛️</div>
+            <h4>Aceleradores</h4>
+            <p>Imanes superconducidos para guiar partículas a altas energías con eficiencia.</p>
+          </div>
+          <div class="app-card">
+            <div class="icon">⚡</div>
+            <h4>Transmisión sin pérdidas</h4>
+            <p>Investigación en cables superconductores para reducir pérdidas eléctricas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCLUSIONES -->
+    <section id="concl" class="section concl">
+      <div class="container section-inner">
+        <h2>Conclusiones</h2>
+        <p class="center">
+          Lo que parece magia, en realidad, es pura física. El Efecto Meissner y la superconductividad muestran cómo leyes cuánticas emergen a escala macroscópica y abren camino a tecnologías disruptivas.
+        </p>
+      </div>
+    </section>
+
+     <!-- EQUIPO -->
+    <section id="equipo" class="section alt">
+      <div class="container section-inner">
+        <h2>Equipo</h2>
+
+        <div class="team-card card" style="display:flex;flex-direction:column;gap:12px;align-items:center;">
+          <!-- Imagen horizontal (placeholder). Reemplaza la URL por la foto real del equipo -->
+          <img src="Grupo.jpg" alt="Foto horizontal del equipo" style="width:100%;max-width:900px;height:auto;border-radius:10px;object-fit:cover;box-shadow:0 8px 24px rgba(2,6,23,0.45);">
+
+          <p class="muted small center" style="max-width:900px;text-align:center;margin-top:8px;">
+            Nuestro equipo: pasión por la física, la investigación y la divulgación científica.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREDITOS -->
+    <footer id="credits" class="section alt footer">
+      <div class="container section-inner">
+        <h3>Créditos y agradecimientos</h3>
+        <p>Integrantes: Juan Miranda, Andrés Gómez, Juan Carlos Ortiz, Milton Chasly</p>
+        <p><a href="https://www.uninorte.edu.co" target="_blank" rel="noopener">Universidad del Norte</a></p>
+
+        <div class="social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="GitHub">GH</a>
+        </div>
+
+        <p class="muted small">© Proyecto Efecto Meissner</p>
+      </div>
+    </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
