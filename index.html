@@ -52,50 +52,17 @@
   <main role="main">
     <section id="home" class="hero">
       <div class="hero-inner container">
-        <div class="hero-text">
-          <h1>Desafiando la Gravedad: <span class="accent">Efecto Meissner</span></h1>
-          <p class="lead">Una demostración experimental de la superconductividad y la levitación cuántica.</p>
-          <div class="hero-cta">
-            <a href="#exp" class="btn primary" id="scrollToExp">Explora el experimento</a>
-            <button type="button" class="btn ghost" id="playAudio" aria-pressed="false" aria-label="Reproducir sonido ambiental">🔊 Sonido ambiental</button>
-          </div>
-        </div>
-
         <div class="hero-visual" aria-hidden="true">
-          <!-- Representación estilizada del disco levitando -->
-          <svg class="lev-svg" viewBox="0 0 420 280" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0" stop-color="#45A29E"/>
-                <stop offset="1" stop-color="#66FCF1"/>
-              </linearGradient>
-              <filter id="fshadow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="8" result="b"/>
-                <feOffset in="b" dx="0" dy="6" result="o"/>
-                <feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-
-            <!-- pista de imanes (estilizada) -->
-            <g class="track">
-              <rect x="28" y="200" width="364" height="18" rx="6" fill="#1b2832"></rect>
-              <!-- imanes -->
-              <g class="magnets">
-                <rect x="48" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
-                <rect x="110" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
-                <rect x="172" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
-                <rect x="234" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
-                <rect x="296" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
-              </g>
-            </g>
-
-            <!-- disco superconductor -->
-            <g class="disc" transform="translate(210,160)">
-              <ellipse class="disc-shadow" cx="0" cy="38" rx="50" ry="12" opacity="0.35" fill="#000" />
-              <circle cx="0" cy="0" r="32" fill="url(#g1)" stroke="#0b1116" stroke-width="3" filter="url(#fshadow)"/>
-              <circle cx="0" cy="0" r="12" fill="#0b1116" opacity="0.12"/>
-            </g>
-          </svg>
+          <div style="text-align:center; margin: 40px 0;">
+            <video 
+              src="Levitación.mp4" 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              style="max-width: 420px; width: 100%; border-radius: 1rem; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
+            </video>
+          </div>
         </div>
       </div>
     </section>
@@ -146,35 +113,28 @@
 
     <!-- FISICA -->
     <section id="phys" class="section alt">
-      <div class="container section-inner">
-        <h2>Física del fenómeno</h2>
+      <div class="container">
+        <h2>Física: Calor, Ondas y Fuerzas</h2>
 
-        <div class="phys-tabs">
-          <button class="tab active" data-target="elec">Electricidad</button>
-          <button class="tab " data-target="calor">Calor y ondas</button>
+        <!-- Pestañas -->
+        <div class="phys-tabs" role="tablist" aria-label="Pestañas de física">
+          <button type="button" class="tab active" role="tab" aria-controls="calor-ondas" aria-selected="true" data-target="calor-ondas">Calor y ondas</button>
+          <button type="button" class="tab" role="tab" aria-controls="electricidad" aria-selected="false" data-target="electricidad">Electricidad</button>
         </div>
 
-        <div class="phys-content">
-          <article id="elec" class="phys-pane active">
-            <h3>Pares de Cooper y resistencia</h3>
-            <p>Al bajar la temperatura, los electrones pueden acoplarse en pares (pares de Cooper) que se comportan como una condensación cuántica coherente. Esto elimina la resistencia eléctrica y permite corrientes persistentes sin disipación.</p>
-            <div class="illustration">
-                <div class="video-card">
-              <video controls muted playsinline preload="metadata" poster="" aria-label="Video ilustración pares de Cooper">
-                <source src="Video2.mp4" type="video/mp4">
-                Tu navegador no soporta video.
-              </video>
-            </div>
-            </div>
-          </article>
-
-          <article id="calor" class="phys-pane">
-            <h3>Enfriamiento y transición de fase</h3>
-            <p>El enfriamiento con nitrógeno líquido reduce la entropía del sistema y lleva al material por debajo de su Tc. Las vibraciones (fonones) y las ondas térmicas se reducen, favoreciendo la formación de pares de Cooper.</p>
-            <div class="illustration">
-                <img src="fonones.png" alt="Ilustración de fonones en un material">
-            </div>
-          </article>
+        <!-- Panes -->
+        <div id="calor-ondas" class="phys-pane active" role="tabpanel" aria-hidden="false">
+          <h3>Calor y Ondas</h3>
+          <p>Explicación sobre transferencia de calor, leyes termodinámicas y comportamiento de ondas en materiales. Incluye ejemplos de cómo la temperatura afecta la superconductividad y la disipación de energía.</p>
+          <ul>
+            <li>Termodinámica: conceptos básicos y temperatura crítica.</li>
+            <li>Ondas electromagnéticas: interacción con medios y campos magnéticos.</li>
+            <li>Ejemplo: efecto del enfriamiento en la repulsión magnética.</li>
+          </ul>
+        </div>
+        <div id="electricidad" class="phys-pane" role="tabpanel" aria-hidden="true">
+          <h3>Electricidad</h3>
+          <p>Conceptos de campos magnéticos, corrientes y cómo el Efecto Meissner expulsa líneas de campo del interior del superconductor.</p>
         </div>
       </div>
     </section>
@@ -226,10 +186,10 @@
               <label for="tempRange">Temperatura: <span id="tempValue">25 °C</span></label>
               <input id="tempRange" type="range" min="-200" max="25" step="0.1" value="25" aria-valuemin="-200" aria-valuemax="25">
               <div class="ticks">
-                <span>25°C</span>
-                <span>-150°C</span>
-                <span>-181°C</span>
                 <span>-195.8°C</span>
+                <span>-110°C</span>
+                <span>-40°C</span>
+                <span>25°C</span>
               </div>
 
               <div id="stateCard" class="state-card">
@@ -319,6 +279,78 @@
       </div>
     </footer>
 
-  <script src="script.js" defer></script>
+  <section id="referencias" class="references">
+  <div class="refs-inner container">
+    <h2>Referencias</h2>
+    <ul>
+      <li>
+        Huebener, R. P. (2019). <em>The Path to Type-II Superconductivity.</em> Metals, 9(6), 682.
+        <div class="meta"><a href="https://doi.org/10.3390/met9060682" target="_blank" rel="noopener">https://doi.org/10.3390/met9060682</a></div>
+      </li>
+
+      <li>
+        Otero, L. E. (1993). <em>Las revoluciones científicas del siglo XX.</em> Cuadernos Del Mundo Actual, N.º 4, pp. 1-31.
+        <div class="meta">ISBN: 84-7679-271-9 — <a href="https://www.academia.edu/4628092/Las_revoluciones_cient%C3%ADficas" target="_blank" rel="noopener">Academia.edu</a></div>
+      </li>
+
+      <li>
+        London, F. (1961). <em>Superfluids: Macroscopic Theory of Superconductivity.</em> (2ª ed., Vol. 2). Dover Publications.
+        <div class="meta"><a href="https://archive.org/details/superfluids0002lond/page/n7/mode/2up" target="_blank" rel="noopener">Archive.org</a></div>
+      </li>
+
+      <li>
+        Kozhevnikov, V. (2021). <em>Meissner Effect: History of Development and Novel Aspects.</em>
+        <div class="meta"><a href="https://doi.org/10.21203/rs.3.rs-532606/v1" target="_blank" rel="noopener">https://doi.org/10.21203/rs.3.rs-532606/v1</a></div>
+      </li>
+
+      <li>
+        Chang, K. (2008, 8 enero). <em>When Superconductivity Became Clear (to Some).</em> The New York Times.
+        <div class="meta"><a href="https://www.nytimes.com/2008/01/08/science/08super.html" target="_blank" rel="noopener">https://www.nytimes.com/2008/01/08/science/08super.html</a></div>
+      </li>
+
+      <li>
+        Instituto de Ciencia de Materiales de Madrid — CSIC. <em>Historia — Superconductividad.</em>
+        <div class="meta"><a href="https://wp.icmm.csic.es/superconductividad/investigacion/historia/" target="_blank" rel="noopener">wp.icmm.csic.es/superconductividad/investigacion/historia</a></div>
+      </li>
+
+      <li>
+        Hayt Jr., W. H. & Buck, J. (2006). <em>Teoría Electromagnética</em> (7° ed.). Interamericana Editores.
+        <div class="meta">Referencia editorial — <a href="https://www.scribd.com/document/373505738/Teoria-Electromagnetica-7ma-Edicion-William-H-Hayt-Jr-John-a-Buck" target="_blank" rel="noopener">Scribd</a></div>
+      </li>
+
+      <li>
+        Nikulov, A. V. (2021). <em>Dynamic processes in superconductors and the laws of thermodynamics.</em> Physica C, 589, 1353934.
+        <div class="meta"><a href="https://doi.org/10.1016/j.physc.2021.1353934" target="_blank" rel="noopener">https://doi.org/10.1016/j.physc.2021.1353934</a></div>
+      </li>
+
+      <li>
+        London, F. & London, H. (1935). <em>The electromagnetic equations of the supraconductor.</em> Proc. R. Soc. Lond. A, 149(866), 71–88.
+        <div class="meta"><a href="http://doi.org/10.1098/rspa.1935.0048" target="_blank" rel="noopener">http://doi.org/10.1098/rspa.1935.0048</a></div>
+      </li>
+
+      <li>
+        Universidad de Buenos Aires. <em>Superconductividad.</em>
+        <div class="meta"><a href="http://materias.df.uba.ar/f4Aa2012c2/files/2012/08/Supercv2.pdf" target="_blank" rel="noopener">materias.df.uba.ar / PDF</a></div>
+      </li>
+
+      <li>
+        Ginsberg, D. M. — <em>Transition temperatures.</em> Encyclopaedia Britannica. (Consultado 17 oct 2025).
+        <div class="meta"><a href="https://www.britannica.com/science/superconductivity/Transition-temperatures" target="_blank" rel="noopener">britannica.com</a></div>
+      </li>
+
+      <!-- Entradas adicionales indicadas por el usuario -->
+      <li>
+        Jayasinha, P. (2022, 5 febrero). <em>The Hubbard model & Bose-Hubbard model: Connecting the dots between QC and condensed matter physics.</em> Medium.
+        <div class="meta"><a href="https://pavanjayasinha.medium.com/the-hubbard-model-bose-hubbard-model-e3f5f2349966" target="_blank" rel="noopener">medium.com</a></div>
+      </li>
+
+      <li>
+        Instituto de Ciencia de Materiales de Madrid — CSIC. <em>Superconductores no convencionales.</em>
+        <div class="meta"><a href="https://wp.icmm.csic.es/superconductividad/materiales-superconductores/superconductores-no-convencionales/" target="_blank" rel="noopener">wp.icmm.csic.es</a></div>
+      </li>
+    </ul>
+  </div>
+</section>
+<script src="script.js" defer></script>
 </body>
 </html>
