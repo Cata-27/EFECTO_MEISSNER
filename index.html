@@ -7,8 +7,8 @@
 
   <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
-  <!-- GSAP (animaciones suaves) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 
   <!-- Icones (Lucide) -->
@@ -20,49 +20,73 @@
   
   <!-- NAV (fija) -->
   <header class="nav-wrap">
-    <nav class="nav container">
-      <a href="#home" class="logo" aria-label="Logo de levitación">
-        <!-- icono minimalista de imán -->
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7 2v6a5 5 0 0 0 5 5h0a5 5 0 0 0 5-5V2" stroke="#66FCF1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M7 12v8a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-8" stroke="#45A29E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="brand">MeissnerLab</span>
-      </a>
+  <div class="container nav">
+    <a href="#home" class="logo"><span class="brand">Efecto Meissner</span></a>
 
-      <ul class="menu">
-        <li><a href="#home">Inicio</a></li>
-        <li><a href="#intro">Introducción</a></li>
-        <li><a href="#exp">Experimento</a></li>
-        <li><a href="#phys">Física</a></li>
-        <li><a href="#sim">Simulación</a></li>
+    <!-- Botón toggle para móvil -->
+    <button id="menuToggle" class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+      <span class="hamb" aria-hidden="true"></span>
+    </button>
+
+    <ul class="menu" id="navMenu">
+      <li><a href="#home">Inicio</a></li>
+      <li><a href="#phys">Física</a></li>
+      <li><a href="#sim">Simulación</a></li>
+      <li><a href="#galeria">Galería</a></li>
         <li><a href="#apps">Aplicaciones</a></li>
         <li><a href="#concl">Conclusiones</a></li>
         <li><a href="#equipo">Equipo</a></li>
         <li><a href="#credits">Créditos</a></li>
+        <li><a href="#referencias">Referencias</a></li>
       </ul>
-
-      <div class="nav-actions">
-        <button id="contrastToggle" class="btn small">Modo claro</button>
-      </div>
     </nav>
   </header>
 
   <!-- HERO -->
   <main role="main">
+    <!-- HERO -->
     <section id="home" class="hero">
       <div class="hero-inner container">
-        <div class="hero-visual" aria-hidden="true">
-          <div style="text-align:center; margin: 40px 0;">
-            <video 
-              src="Levitación.mp4" 
-              autoplay 
-              loop 
-              muted 
-              playsinline 
-              style="max-width: 420px; width: 100%; border-radius: 1rem; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
-            </video>
+        <div class="hero-text">
+          <h1>Desafiando la Gravedad: <span class="accent">Efecto Meissner</span></h1>
+          <p class="lead">Una demostración experimental de la superconductividad y la levitación cuántica.</p>
+          <div class="hero-cta">
+            <a href="#exp" class="btn primary" id="scrollToExp">Explora el experimento</a>
+            <button type="button" class="btn ghost" id="playAudio" aria-pressed="false" aria-label="Reproducir sonido ambiental">🔊 Sonido ambiental</button>
           </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <svg class="lev-svg" viewBox="0 0 420 280" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#45A29E"/>
+                <stop offset="1" stop-color="#66FCF1"/>
+              </linearGradient>
+              <filter id="fshadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="8" result="b"/>
+                <feOffset in="b" dx="0" dy="6" result="o"/>
+                <feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <g class="track">
+              <rect x="28" y="200" width="364" height="18" rx="6" fill="#1b2832"></rect>
+              <g class="magnets">
+                <rect x="48" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="110" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="172" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="234" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+                <rect x="296" y="176" width="48" height="32" rx="4" fill="#0f1620" stroke="url(#g1)" stroke-width="2"></rect>
+              </g>
+            </g>
+
+            <g class="disc" transform="translate(210,160)">
+              <ellipse class="disc-shadow" cx="0" cy="38" rx="50" ry="12" opacity="0.35" fill="#000" />
+              <circle cx="0" cy="0" r="32" fill="url(#g1)" stroke="#0b1116" stroke-width="3" filter="url(#fshadow)"/>
+              <circle cx="0" cy="0" r="12" fill="#0b1116" opacity="0.12"/>
+            </g>
+          </svg>
         </div>
       </div>
     </section>
@@ -114,29 +138,228 @@
     <!-- FISICA -->
     <section id="phys" class="section alt">
       <div class="container">
-        <h2>Física: Calor, Ondas y Fuerzas</h2>
+        <h2>Física: Calor-ondas y electricidad </h2>
 
         <!-- Pestañas -->
         <div class="phys-tabs" role="tablist" aria-label="Pestañas de física">
-          <button type="button" class="tab active" role="tab" aria-controls="calor-ondas" aria-selected="true" data-target="calor-ondas">Calor y ondas</button>
-          <button type="button" class="tab" role="tab" aria-controls="electricidad" aria-selected="false" data-target="electricidad">Electricidad</button>
+          <button type="button" class="tab active" role="tab" aria-controls="termodinamica-superconductividad" aria-selected="true" data-target="termodinamica-superconductividad">Termodinámica de la Superconductividad</button>
+          <button type="button" class="tab" role="tab" aria-controls="Electricidad-Superconductividad" aria-selected="false" data-target="Electricidad-Superconductividad">Electricidad y Superconductividad</button>
         </div>
 
         <!-- Panes -->
-        <div id="calor-ondas" class="phys-pane active" role="tabpanel" aria-hidden="false">
-          <h3>Calor y Ondas</h3>
-          <p>Explicación sobre transferencia de calor, leyes termodinámicas y comportamiento de ondas en materiales. Incluye ejemplos de cómo la temperatura afecta la superconductividad y la disipación de energía.</p>
-          <ul>
-            <li>Termodinámica: conceptos básicos y temperatura crítica.</li>
-            <li>Ondas electromagnéticas: interacción con medios y campos magnéticos.</li>
-            <li>Ejemplo: efecto del enfriamiento en la repulsión magnética.</li>
-          </ul>
+        <div id="termodinamica-superconductividad" class="phys-pane active" role="tabpanel" aria-hidden="false">
+          <h3>Termodinámica de la Superconductividad</h3>
+          
+          <div class="thermo-sections">
+            <div class="thermo-section">
+              <h4>Fundamentos Históricos</h4>
+              <div class="thermo-section-content">
+                <p>La termodinámica fue clave para identificar que la superconductividad no podía ser simplemente conductividad perfecta, ya que esto contradiría la Segunda Ley de la Termodinámica en el efecto Meissner. Esta aparente contradicción llevó a reconocer la superconductividad como una transición de fase reversible.</p>
+              </div>
+            </div>
+
+            <div class="thermo-section">
+              <h4>Condensado de Bose-Einstein</h4>
+              <div class="thermo-section-content">
+                <p>La superconductividad es una manifestación del Condensado de Bose-Einstein (BEC), una fase de la materia que comparte características con otros fenómenos como la superfluidez, principalmente la pérdida de cierto tipo de rozamiento. Esta fase se alcanza mediante un proceso de condensación.</p>
+              </div>
+            </div>
+
+            <div class="thermo-section">
+              <h4>Transición de Fase</h4>
+              <div class="thermo-section-content">
+                <p>A diferencia de las transiciones de primer orden (como la fusión del agua a 0°C), la transición superconductora:</p>
+                <ul>
+                  <li>No involucra calor latente</li>
+                  <li>No mantiene una temperatura constante durante la transición</li>
+                  <li>Es una transición continua donde la formación de pares de Cooper comienza en T<sub>c</sub></li>
+                  <li>La población de pares de Cooper aumenta gradualmente hasta T = 0 K</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="thermo-section">
+              <h4>Formación de Pares de Cooper</h4>
+              <div class="thermo-section-content">
+                <p>De los n electrones totales en el material, el número n<sub>s</sub> de electrones emparejados aumenta progresivamente.</p>
+                <div class="formula">
+                  T → 0 K ⟹ n<sub>s</sub> → n
+                </div>
+                <p class="note">En el cero absoluto todos los electrones habrán formado pares de Cooper.</p>
+              </div>
+            </div>
+
+            <div class="thermo-section">
+              <h4>Entropía y Estado Fundamental</h4>
+              <div class="thermo-section-content">
+                <p>La fase superconductora presenta un orden superior (menor entropía) debido a:</p>
+                <ul>
+                  <li>La condensación de pares de Cooper al estado fundamental de mínima energía</li>
+                  <li>La formación de una banda prohibida de energía Δ</li>
+                  <li>La coherencia cuántica: los pares de Cooper se mueven sin interrupciones</li>
+                  <li>La red cristalina "abre paso" a los pares de Cooper</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="thermo-section">
+              <h4>Discontinuidad del Calor Específico</h4>
+              <div class="thermo-section-content">
+                <p>En la temperatura crítica T<sub>c</sub>, el calor específico muestra un comportamiento único:</p>
+                <ul>
+                  <li>Aumenta abruptamente al pasar a la fase superconductora</li>
+                  <li>Se requiere una energía 2Δ para romper cada par de Cooper</li>
+                  <li>Al acercarse a T<sub>c</sub>, aunque Δ disminuye, se necesita más energía total</li>
+                  <li>Es más costoso salir del estado superconductor que entrar en él</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="thermo-section">
+              <h4>Energía Libre de Gibbs</h4>
+              <div class="thermo-section-content">
+                <div class="formula">
+                  <p>G = H - TS</p>
+                  <p>ΔG = ΔH - TΔS</p>
+                </div>
+                <ul>
+                  <li>ΔH negativo: proceso exotérmico</li>
+                  <li>ΔS negativo: aumento del orden</li>
+                  <li>ΔG negativo: proceso espontáneo</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="thermo-section">
+              <h4>Efecto Meissner</h4>
+              <div class="thermo-section-content">
+                <p>El efecto Meissner surge como consecuencia de la minimización de la energía libre de Gibbs:</p>
+                <ul>
+                  <li>Los pares de Cooper buscan mantener su estado de mínima energía libre</li>
+                  <li>Resisten el campo magnético externo que intenta dar energía cinética</li>
+                  <li>Generan supercorrientes superficiales hasta una profundidad λ<sub>L</sub></li>
+                  <li>Las corrientes cancelan exponencialmente el campo externo</li>
+                  <li>El sistema mantiene su estado de mínima energía libre</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="electricidad" class="phys-pane" role="tabpanel" aria-hidden="true">
-          <h3>Electricidad</h3>
-          <p>Conceptos de campos magnéticos, corrientes y cómo el Efecto Meissner expulsa líneas de campo del interior del superconductor.</p>
+
+    <div id="Electricidad-Superconductividad" class="phys-pane" role="tabpanel" aria-hidden="true">
+      <h3>Electricidad y Superconductividad</h3>
+
+      <div class="card-container">
+        <div class="card">
+          <h4>Más allá de una simple definición</h4>
+          <p>
+            La superconductividad es un fenómeno complejo que va más allá de su definición convencional:
+            al enfriar un conductor por debajo de una temperatura crítica, este pierde toda resistencia eléctrica
+            y rechaza el campo magnético externo.
+          </p>
+        </div>
+
+        <div class="card">
+          <h4>Del Caos al Orden</h4>
+          <div class="comparison-box">
+            <div class="subcard">
+              <h5>Conductor Normal</h5>
+              <ul>
+                <li>Electrones desordenados que se mueven caóticamente</li>
+                <li>“Tropiezan” entre sí y chocan con la red</li>
+                <li>Generan resistencia</li>
+              </ul>
+            </div>
+          </div>
+          <div class="subcard">
+            <h5>Superconductor</h5>
+            <ul>
+              <li>Pares de Cooper que se mueven coordinadamente</li>
+              <li>No se dispersan</li>
+              <li>Fluyen sin resistencia</li>
+              <li>Mantienen coherencia</li>
+            </ul>
+          </div>
         </div>
       </div>
+
+      <div class="card">
+        <h4>El Efecto Meissner Simplificado</h4>
+        <p class="highlight">“¡STOP!” — El superconductor al campo magnético</p>
+        <p>
+          Como un escudo perfecto, el superconductor mantiene su interior libre de campo magnético,
+          rechazando cualquier campo externo que intente penetrarlo.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>Teoría de Ginzburg-Landau</h4>
+        <ul>
+          <li>Función de orden que mide el “grado de superconductividad”</li>
+          <li>Energía libre de Helmholtz</li>
+          <li>Principio de mínima energía</li>
+          <li>Rechazo del campo magnético para mantener la estabilidad</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>Modelo BCS</h4>
+        <ol>
+          <li>Electrón pasa cerca de iones positivos</li>
+          <li>Atrae y deforma la red cristalina</li>
+          <li>Se genera un fonón</li>
+          <li>La zona deformada atrae otro electrón</li>
+          <li>¡Se forma el par de Cooper!</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h4>Superconductores: Dos Mundos Diferentes</h4>
+        <div class="comparison-box">
+          <div class="subcard">
+            <h5>Convencionales</h5>
+            <ul>
+              <li>Plomo</li>
+              <li>Aluminio</li>
+              <li>Mercurio</li>
+              <li>Explicados por modelo BCS</li>
+            </ul>
+        </div>
+        <div class="subcard">
+          <h5>No Convencionales</h5>
+          <ul>
+            <li>Cupratos</li>
+            <li>Mecanismo más complejo</li>
+            <li>Basados en interacciones magnéticas</li>
+            <li>Emparejamiento diferente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>El Caso Especial de los Cupratos</h4>
+      <p><strong>Estructura en capas de CuO₂:</strong></p>
+      <ul>
+        <li>Naturalmente aislantes (¡sorpresa!)</li>
+        <li>Separados por itrio o lantánidos</li>
+        <li>Contradicen la teoría de bandas</li>
+        <li>Son aislantes de Mott</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>El Secreto de los Huecos</h4>
+      <ol>
+        <li>Los dopantes quitan electrones</li>
+        <li>Se crean huecos móviles</li>
+        <li>Los huecos se emparejan</li>
+        <li>Las fluctuaciones magnéticas actúan como “pegamento”</li>
+        <li>¡El sistema alcanza menor energía!</li>
+      </ol>
+    </div>
+
+  </div>
     </section>
 
     <!-- SIMULACIÓN -->

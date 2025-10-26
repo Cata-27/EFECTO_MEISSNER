@@ -49,6 +49,7 @@
   const initialTab = tabs.find(t => t.classList.contains('active')) || tabs[0];
   activateTab(initialTab);
 })();
+
 // --- Simulación del superconductor ---
 (function initSuperconductorSim() {
   const tempRange = document.getElementById("tempRange");
@@ -83,13 +84,12 @@
 
     // Aplicar transform al grupo SVG del disco
     if (disc) {
-      // disc es <g transform="translate(210,160)">: actualizamos la traslación Y
       disc.setAttribute('transform', `translate(210,${160 + y})`);
     }
 
-    // Ajustar sombra (rx, ry y opacidad) según altura
+    // Ajustar sombra
     if (shadow) {
-      const liftRatio = (0 - y) / Math.abs(yLevitate); // 0..1 cuando y en [0,-54]
+      const liftRatio = (0 - y) / Math.abs(yLevitate);
       const shadowScale = 1 - liftRatio * 0.5;
       const rx = Math.max(18, 50 * shadowScale);
       const ry = Math.max(6, 12 * shadowScale);
@@ -98,7 +98,7 @@
       shadow.style.opacity = String(Math.max(0.08, 0.35 * (1 - liftRatio * 0.85)));
     }
 
-    // Actualizar textos de estado según umbrales
+    // Actualizar estado
     if (stateTitle && stateDesc) {
       if (t > -150) {
         stateTitle.textContent = 'Estado: Normal';
@@ -116,12 +116,11 @@
     }
   }
 
-  // Inicialización: usar valor actual del input
-  const initial = (typeof tempRange.value !== 'undefined') ? tempRange.value : tempRange.getAttribute('value') || 25;
+  // Inicialización
+  const initial = tempRange.value || 25;
   renderTemperatureDisplay(initial);
   updateVisuals(initial);
 
-  // Eventos: siempre leer el valor numérico del control y actualizar
   tempRange.addEventListener('input', (e) => {
     const val = Number(e.target.value);
     renderTemperatureDisplay(val);
@@ -133,3 +132,59 @@
     updateVisuals(val);
   });
 })();
+
+// --- Botón de sonido ambiental ---
+(function initAmbientSound() {
+  const btn = document.getElementById('playAudio');
+  if (!btn) return;
+  const audio = new Audio('Alone.mp3');
+  audio.loop = true; // Para que siga sonando en bucle
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        btn.textContent = '🔇 Pausar sonido';
+        btn.setAttribute('aria-pressed', 'true');
+      }).catch(err => console.warn('Error al reproducir audio:', err));
+    } else {
+      audio.pause();
+      btn.textContent = '🔊 Sonido ambiental';
+      btn.setAttribute('aria-pressed', 'false');
+    }
+  });
+})();
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.getElementById("tituloVideo");
+  if (video) {
+    video.volume = 0.1; // volumen entre 0 (silencio) y 1 (máximo)
+  }
+});
+// --------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!expanded));
+      navMenu.classList.toggle('active');
+    });
+
+    // Cerrar menú al pulsar un enlace
+    navMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // cerrar con Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+});
