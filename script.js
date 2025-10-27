@@ -188,3 +188,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+// --------------------------------------------------------
+// --- Galería interactiva (imágenes y videos) ---
+document.addEventListener('DOMContentLoaded', () => {
+  const gallery = document.getElementById('bookGallery');
+  const items = gallery.querySelectorAll('.page, video');
+  let currentIndex = 0;
+
+  // Muestra la primera imagen o video
+  items[currentIndex].classList.add('active');
+
+  // Evento para pasar a la siguiente al hacer clic
+  gallery.addEventListener('click', () => {
+    items[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % items.length;
+    items[currentIndex].classList.add('active');
+
+    // Si el elemento es un video, lo reinicia y lo reproduce
+    if (items[currentIndex].tagName === 'VIDEO') {
+      items[currentIndex].currentTime = 0;
+      items[currentIndex].play();
+    }
+  });
+});

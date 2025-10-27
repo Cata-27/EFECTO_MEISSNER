@@ -601,4 +601,74 @@ img, video, svg, canvas {
   .hero h1 { font-size: clamp(24px, 6vw, 32px); text-align: center; }
   .hero-text { text-align: center; }
 }
-/* --- FIN SECCIÓN SIMULACIÓN --- */
+
+/* --- Estilo general de la galería (oscuro y coherente con el tema) --- */
+#galeria {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--alt);
+  border-top: 1px solid rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  color: var(--text);
+}
+
+#galeria h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-2);
+}
+
+.gallery-desc {
+  font-size: 1rem;
+  color: rgba(197,198,199,0.85);
+  margin-bottom: 1.5rem;
+}
+
+/* --- Contenedor principal --- */
+.book-gallery {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 25px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.45);
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* --- Páginas (imágenes) y videos --- */
+.book-gallery .page,
+.book-gallery video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  object-fit: cover;
+}
+
+/* --- La página o video activo se muestra --- */
+.book-gallery .page.active,
+.book-gallery video.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* --- Ajuste de imágenes --- */
+.book-gallery img {
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+/* --- En móviles --- */
+@media (max-width: 600px) {
+  .book-gallery {
+    height: 300px;
+  }
+}
