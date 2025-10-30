@@ -192,22 +192,131 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- Galería interactiva (imágenes y videos) ---
 document.addEventListener('DOMContentLoaded', () => {
   const gallery = document.getElementById('bookGallery');
+  if (!gallery) return;
+  
   const items = gallery.querySelectorAll('.page, video');
+  if (items.length === 0) return;
+  
   let currentIndex = 0;
 
-  // Muestra la primera imagen o video
-  items[currentIndex].classList.add('active');
-
-  // Evento para pasar a la siguiente al hacer clic
-  gallery.addEventListener('click', () => {
+  // Función para cambiar de imagen/video
+  function showItem(index) {
+    // Pausar video anterior si existe
+    if (items[currentIndex].tagName === 'VIDEO') {
+      items[currentIndex].pause();
+    }
+    
+    // Remover active del actual
     items[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + 1) % items.length;
+    
+    // Actualizar índice
+    currentIndex = index;
+    
+    // Activar nuevo item
     items[currentIndex].classList.add('active');
-
-    // Si el elemento es un video, lo reinicia y lo reproduce
+    
+    // Si es video, reproducir
     if (items[currentIndex].tagName === 'VIDEO') {
       items[currentIndex].currentTime = 0;
       items[currentIndex].play();
     }
+  }
+
+  // Mostrar el primero
+  showItem(0);
+
+  // Cambiar con UN SOLO CLICK en la galería
+  gallery.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const nextIndex = (currentIndex + 1) % items.length;
+    showItem(nextIndex);
+  });
+
+  // También permitir navegación con teclado (opcional)
+  gallery.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      const nextIndex = (currentIndex + 1) % items.length;
+      showItem(nextIndex);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const prevIndex = (currentIndex - 1 + items.length) % items.length;
+      showItem(prevIndex);
+    }
+  });
+
+  // Hacer la galería focuseable para navegación por teclado
+  gallery.setAttribute('tabindex', '0');
+  gallery.style.cursor = 'pointer';
+});
+// --- Carrusel de imágenes apiladas en INTRODUCCIÓN ---
+document.addEventListener('DOMContentLoaded', () => {
+  const introStack = document.querySelector('#intro .image-stack');
+  if (!introStack) return;
+  
+  const cards = Array.from(introStack.querySelectorAll('.image-card'));
+  if (cards.length === 0) return;
+  
+  let currentIndex = 0;
+
+  function updateStack() {
+    cards.forEach((card, index) => {
+      card.style.zIndex = '';
+      card.style.transform = '';
+      card.style.opacity = '';
+      
+      if (index === currentIndex) {
+        // Primera carta (activa)
+        card.style.zIndex = '3';
+        card.style.transform = 'translateX(-50%) translateY(0) scale(1)';
+        card.style.opacity = '1';
+      } else if (index === (currentIndex + 1) % cards.length) {
+        // Segunda carta
+        card.style.zIndex = '2';
+        card.style.transform = 'translateX(-50%) translateY(20px) scale(0.95)';
+        card.style.opacity = '0.7';
+      } else if (index === (currentIndex + 2) % cards.length) {
+        // Tercera carta
+        card.style.zIndex = '1';
+        card.style.transform = 'translateX(-50%) translateY(40px) scale(0.9)';
+        card.style.opacity = '0.4';
+      } else {
+        // Cartas ocultas
+        card.style.zIndex = '0';
+        card.style.transform = 'translateX(-50%) translateY(60px) scale(0.85)';
+        card.style.opacity = '0';
+      }
+    });
+  }
+
+  function nextCard() {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateStack();
+  }
+
+  // Click en cualquier carta para avanzar
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      nextCard();
+    });
+  });
+
+  // También click en el contenedor
+  introStack.addEventListener('click', (e) => {
+    // Solo si no clickeó una carta directamente
+    if (!e.target.closest('.image-card')) {
+      nextCard();
+    }
+  });
+
+  // Estado inicial
+  updateStack();
+  
+  // Hacer cursor pointer en toda el área
+  introStack.style.cursor = 'pointer';
+  cards.forEach(card => {
+    card.style.cursor = 'pointer';
   });
 });
